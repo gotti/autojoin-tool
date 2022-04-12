@@ -11,6 +11,7 @@ import os
 username = os.getenv("USERNAME")
 password = os.getenv("PASSWORD")
 target = os.getenv("TARGET")
+subject = os.getenv("SUBJECT")
 
 options = webdriver.firefox.options.Options()
 options.add_argument("--headless")
@@ -20,8 +21,7 @@ options.set_preference("network.proxy.socks_port", 1080)
 
 driver = webdriver.Firefox(options=options)
 driver.get(target)
-#wait = WebDriverWait(driver, 10)
-#wait.until(expected_conditions.url_to_be("https://shibboleth.cc.uec.ac.jp/idp/profile/SAML2/Redirect/SSO?execution=e1s1"))
+
 time.sleep(4)
 
 windows = driver.window_handles
@@ -39,7 +39,7 @@ driver.find_element(by=By.ID, value="password").send_keys(password)
 driver.find_element(by=By.CLASS_NAME, value="form-button").click()
 time.sleep(1)
 
-driver.find_element(by=By.LINK_TEXT, value="» 2022 コンピュータネットワーク-高田-火4").click()
+driver.find_element(by=By.LINK_TEXT, value=subject).click()
 
 time.sleep(2)
 
