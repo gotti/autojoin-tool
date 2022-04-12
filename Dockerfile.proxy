@@ -1,0 +1,7 @@
+FROM alpine
+
+RUN apk add --update openssh sshpass bash
+
+RUN mkdir -p ~/.ssh && ssh-keyscan sol.edu.cc.uec.ac.jp >> ~/.ssh/known_hosts
+
+CMD ["bash", "-c", "sshpass -p ${PASSWORD} ssh -vNT ${USERNAME}@sol.edu.cc.uec.ac.jp -D 0.0.0.0:1080"]

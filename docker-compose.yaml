@@ -1,0 +1,21 @@
+version: "3.4"
+volumes:
+  empty:
+services:
+  autojoin:
+    image: autojoin
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    depends_on:
+    - proxy
+    env_file: autojoin.conf
+    links:
+      - proxy
+  proxy:
+    image: proxy
+    build:
+      context: .
+      dockerfile: ./Dockerfile.proxy
+    container_name: proxy
+    env_file: autojoin.conf
