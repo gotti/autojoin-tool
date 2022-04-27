@@ -12,11 +12,12 @@ username = os.getenv("USERNAME")
 password = os.getenv("PASSWORD")
 target = os.getenv("TARGET")
 subject = os.getenv("SUBJECT")
+proxy_url = "localhost"
 
 options = webdriver.firefox.options.Options()
 options.add_argument("--headless")
 options.set_preference("network.proxy.type", 1)
-options.set_preference("network.proxy.socks", "proxy")
+options.set_preference("network.proxy.socks", proxy_url)
 options.set_preference("network.proxy.socks_port", 1080)
 
 driver = webdriver.Firefox(options=options)
@@ -28,7 +29,7 @@ windows = driver.window_handles
 
 driver.find_element(by=By.CLASS_NAME, value="showLoginButton").click()
 
-time.sleep(2)
+time.sleep(4)
 
 new_window = driver.window_handles
 
@@ -59,4 +60,16 @@ for e in l:
     e.find_element(by=By.TAG_NAME, value="a").click()
     break
 
-exit(1)
+time.sleep(2)
+
+f = driver.find_elements(by=By.TAG_NAME, value="frame")[1]
+
+driver.switch_to.frame(f)
+
+time.sleep(2)
+
+driver.find_element(by=By.TAG_NAME, value="input").click()
+
+time.sleep(1)
+
+exit(0)
